@@ -21,6 +21,7 @@ urlpatterns = [
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
     path("books/", include("apps.books.urls", namespace="books")),
+    path("quizzes/", include("apps.quizzes.urls", namespace="quizzes")),
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]
