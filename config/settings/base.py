@@ -80,6 +80,8 @@ THIRD_PARTY_APPS = [
     "allauth.socialaccount",
     "django_celery_beat",
     "graphene_django",
+    "graphql_auth",
+    "graphql_jwt.refresh_token.apps.RefreshTokenConfig",
 ]
 
 LOCAL_APPS = [
@@ -101,6 +103,8 @@ MIGRATION_MODULES = {"sites": "graphqllearn.contrib.sites.migrations"}
 AUTHENTICATION_BACKENDS = [
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
+    "graphql_jwt.backends.JSONWebTokenBackend",
+    # "graphql_auth.backends.GraphQLAuthBackend",
 ]
 # https://docs.djangoproject.com/en/dev/ref/settings/#auth-user-model
 AUTH_USER_MODEL = "users.User"
@@ -321,6 +325,27 @@ SOCIALACCOUNT_ADAPTER = "graphqllearn.users.adapters.SocialAccountAdapter"
 # https://docs.allauth.org/en/latest/socialaccount/configuration.html
 SOCIALACCOUNT_FORMS = {"signup": "graphqllearn.users.forms.UserSocialSignupForm"}
 
+
+# GRAPHENE
+# ------------------------------------------------------------------------------
+GRAPHENE = {
+    "SCHEMA": "config.schema.schema",
+    "MIDDLEWARE": [
+        "graphql_jwt.middleware.JSONWebTokenMiddleware",
+    ],
+}
+
+GRAPHQL_JWT = {
+    "JWT_VERIFY_EXPIRATION": True,
+    "JWT_LONG_RUNNING_REFRESH_TOKEN": True,
+}
+
+GRAPHQL_AUTH = {
+    "LOGIN_ALLOWED_FIELDS": ["username", "email"],
+    "VERIFY_EMAIL_MUTATION": True,
+    "SEND_ACTIVATION_EMAIL": False,
+    "SEND_PASSWORD_RESET_EMAIL": False,
+}
 
 # Your stuff...
 # ------------------------------------------------------------------------------

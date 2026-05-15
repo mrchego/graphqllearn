@@ -6,6 +6,8 @@ from django.urls import include
 from django.urls import path
 from django.views import defaults as default_views
 from django.views.generic import TemplateView
+from graphene_django.views import GraphQLView
+from config.schema import schema
 
 urlpatterns = [
     path("", TemplateView.as_view(template_name="pages/home.html"), name="home"),
@@ -20,8 +22,10 @@ urlpatterns = [
     path("users/", include("graphqllearn.users.urls", namespace="users")),
     path("accounts/", include("allauth.urls")),
     # Your stuff: custom urls includes go here
-    path("books/", include("apps.books.urls", namespace="books")),
-    path("quizzes/", include("apps.quizzes.urls", namespace="quizzes")),
+    path(
+        "graphql/",
+        GraphQLView.as_view(graphiql=True, schema=schema),
+    ),
     # Media files
     *static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT),
 ]

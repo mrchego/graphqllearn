@@ -24,6 +24,8 @@ dependencies = [
   "django-cloudinary-storage>=0.3.0",
   "django-crispy-forms==2.6",
   "django-environ==0.13.0",
+  "django-graphql-auth>=0.3.7",
+  "django-graphql-jwt>=0.4.0",
   "django-model-utils==5.0.0",
   "django-redis==6.0.0",
   "flower==2.0.1",
